@@ -46,7 +46,15 @@ namespace API.Data
             };
             var adminresult = await userManager.CreateAsync(admin, "adminpassword");
             var adminroleresult = await userManager.AddToRolesAsync(admin, new[] {"Admin","Moderator"});
-            
+            admin = new AppUser
+            {
+                UserName = "mudassir"
+            };
+             adminresult = await userManager.CreateAsync(admin, "password");
+             adminroleresult = await userManager.AddToRolesAsync(admin, new[] { "Admin", "Moderator" });
+
         }
-    }
+    
+   
+   }
 }

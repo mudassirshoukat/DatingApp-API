@@ -72,6 +72,9 @@ namespace API.Data
 
             //(Photos Fluent validation)
             Builder.Entity<Photo>().HasQueryFilter(x => x.IsApproved);
+
+          
+           
         
         }
 

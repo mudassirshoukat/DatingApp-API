@@ -23,7 +23,7 @@ namespace API.Controllers
         }
 
 
-        [Authorize(Policy = "RequireAdminRole")]
+        //[Authorize(Policy = "RequireAdminRole")]
         [HttpGet("Users-with-roles")]
         public async Task<ActionResult> GetUsersWithRoles()
         {

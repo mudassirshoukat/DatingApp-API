@@ -1,5 +1,6 @@
 ﻿using API.DTO.MemberDtos;
 using API.DTO.PhotoDtos;
+using API.DTO.UserDtos;
 using API.Entities;
 using API.Extentions;
 using API.Helpers;
@@ -14,19 +15,20 @@ using Newtonsoft.Json;
 namespace API.Controllers
 {
 
-    [Authorize]
+    //[Authorize]
     public class UsersController : BaseApiController
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
-        private readonly IPhotoService _photoService;
+      private readonly IUserRepository userRepo;
+      private readonly IPhotoService _photoService;
 
-        public UsersController(IUnitOfWork unitOfWork, IMapper mapper)
+        public UsersController(IUnitOfWork unitOfWork, IMapper mapper,IUserRepository userRepo)
         {
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
-
-        }
+         this.userRepo = userRepo;
+      }
 
 
 
@@ -68,6 +70,7 @@ namespace API.Controllers
         [Route("{UserName}")]
         public async Task<ActionResult<MemberResponseDto>> GetUserByUserName(string UserName)
         {
+      
             var appUser = new AppUser();
            
             if (UserName.ToLower() == User.GetUserName().ToLower())
@@ -94,7 +97,8 @@ namespace API.Controllers
             string userName = User.GetUserName();
             AppUser user = await unitOfWork.UserRepository.GetUserByUserNameAsync(userName);
             mapper.Map(member, user);
-            if (await unitOfWork.Complete()) return NoContent();
+        
+         if (await unitOfWork.Complete()) return NoContent();
             return BadRequest("Failed to update resource");
 
         }
@@ -122,7 +126,9 @@ namespace API.Controllers
                 return NotFound();
             }
 
-            unitOfWork.UserRepository.DeleteUserAsync(appUser);
+            UserResponseDto dto= new UserResponseDto() ;
+         
+         unitOfWork.UserRepository.DeleteUserAsync(appUser);
             await unitOfWork.Complete();
 
             return NoContent();

@@ -49,11 +49,11 @@ try
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 
-    await context.Database.ExecuteSqlRawAsync("TRUNCATE TABLE [Connections]");
+    //await context.Database.ExecuteSqlRawAsync("TRUNCATE TABLE [Connections]");
 
-    //await context.Database.MigrateAsync();
-    //await Seed.SeedUsers(userManager, roleManager);
-    
+    await context.Database.MigrateAsync();
+    await Seed.SeedUsers(userManager, roleManager);
+
 }
 catch (Exception ex)
 {

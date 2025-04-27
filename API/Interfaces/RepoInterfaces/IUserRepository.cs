@@ -20,6 +20,7 @@ namespace API.Interfaces.RepoInterfaces
         Task<string> GetGenderByUserName(string UserName);
 
         void DeleteUserAsync(AppUser user);
+      
 
     }
 }
