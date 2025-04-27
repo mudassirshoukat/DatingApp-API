@@ -29,8 +29,8 @@ app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrig
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+   app.UseSwagger();
+   app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -45,22 +45,22 @@ using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 try
 {
-    var context = services.GetRequiredService<DataContext>();
-    var userManager = services.GetRequiredService<UserManager<AppUser>>();
-    var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+   var context = services.GetRequiredService<DataContext>();
+   var userManager = services.GetRequiredService<UserManager<AppUser>>();
+   var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 
-    //await context.Database.ExecuteSqlRawAsync("TRUNCATE TABLE [Connections]");
+   //await context.Database.ExecuteSqlRawAsync("TRUNCATE TABLE [Connections]");
 
-    await context.Database.MigrateAsync();
-    await Seed.SeedUsers(userManager, roleManager);
+   //await context.Database.MigrateAsync();
+   await Seed.SeedUsers(userManager, roleManager);
 
 }
 catch (Exception ex)
 {
 
 
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An Error Occurred during migration");
+   var logger = services.GetRequiredService<ILogger<Program>>();
+   logger.LogError(ex, "An Error Occurred during migration");
 
 }
 
