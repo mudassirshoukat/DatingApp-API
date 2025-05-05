@@ -1,9 +1,0 @@
-{
-    "editor.fontSize": 15,
-    "appService.zipIgnorePattern": [
-        "node_modules{,/**}",
-        ".vscode{,/**}"
-    ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/bd3576fc-ae2b-4dab-ae14-bbaaba582844/resourceGroups/rg-DatingApp-eastus-dev-001/providers/Microsoft.Web/sites/app-datingapp-Client-cc-dev-001",
-    "appService.deploySubpath": "dist\\client"
-}
