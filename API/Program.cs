@@ -4,9 +4,10 @@ using API.Extentions;
 using API.Middlewares;
 
 using API.SignalR;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,13 +22,41 @@ builder.Services.AddControllers()
     .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
 
+//Swagger Authorization Ability configuration
+builder.Services.AddSwaggerGen(c =>
+{
+   c.AddSecurityDefinition(name: JwtBearerDefaults.AuthenticationScheme, securityScheme: new OpenApiSecurityScheme
+   {
+      Name = "Authorization",
+      Description = "Enter the Bearer string",
+      In = ParameterLocation.Header,
+      Type = SecuritySchemeType.ApiKey,
+      Scheme = "Bearer"
+   });
+   c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = JwtBearerDefaults.AuthenticationScheme
+                }
+            }, new string[]{}
+        }
+    });
+});
+
+
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:4200"));
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("https://localhost:4200", "https://app-datingapp-client-cc-dev-001.azurewebsites.net"));
 //
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
+if (true)
 {
    app.UseSwagger();
    app.UseSwaggerUI();
