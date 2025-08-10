@@ -77,11 +77,12 @@ try
    var context = services.GetRequiredService<DataContext>();
    var userManager = services.GetRequiredService<UserManager<AppUser>>();
    var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+   var env = services.GetRequiredService<IWebHostEnvironment>();
 
    //await context.Database.ExecuteSqlRawAsync("TRUNCATE TABLE [Connections]");
 
-   //await context.Database.MigrateAsync();
-   await Seed.SeedUsers(userManager, roleManager);
+   await context.Database.MigrateAsync();
+   await Seed.SeedUsers(userManager, roleManager,env);
 
 }
 catch (Exception ex)

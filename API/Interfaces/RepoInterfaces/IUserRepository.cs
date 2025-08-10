@@ -6,21 +6,20 @@ using System.Collections.Generic;
 
 namespace API.Interfaces.RepoInterfaces
 {
-    public interface IUserRepository
-    {
-        void Update(AppUser user);
-        
-        bool UserExists(int id);
-        Task<PagedList<AppUser>> GetAllUserAsync(UserQueryParams prms);
+   public interface IUserRepository
+   {
+      void Update(AppUser user);
 
-        Task<AppUser> GetUserByIdAsync(int Id);
+      bool UserExists(int id);
+      Task<PagedList<AppUser>> GetAllUserAsync(UserQueryParams prms);
+      Task<IEnumerable<AppUser>> GetAllUserAsync();
+      Task<AppUser> GetUserByIdAsync(int Id);
 
-        Task<AppUser> GetUserByUserNameAsync(string UserName);
-        Task<AppUser> GetCurrentUserByUserNameAsync(string UserName);
-        Task<string> GetGenderByUserName(string UserName);
+      Task<AppUser> GetUserByUserNameAsync(string UserName);
+      Task<AppUser> GetCurrentUserByUserNameAsync(string UserName);
+      Task<string> GetGenderByUserName(string UserName);
 
-        void DeleteUserAsync(AppUser user);
-      
+      void DeleteUserAsync(AppUser user);
 
-    }
+   }
 }
