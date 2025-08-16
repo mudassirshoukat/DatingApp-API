@@ -19,10 +19,10 @@ namespace API.Extentions
             Services.AddSwaggerGen();
 
 
-
+         var con = Config.GetConnectionString("DefaultConnection");
             Services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(Config.GetConnectionString("DefaultConnection"));
+               options.UseMySql(con, ServerVersion.AutoDetect(con));
             });
             Services.AddCors();
             Services.AddScoped<ITokenService, TokenService>();
