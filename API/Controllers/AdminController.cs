@@ -32,7 +32,6 @@ namespace API.Controllers
                 .Select(u => new
                 {
                     Id = u.Id,
-                    Location="unknown",
                     UserName = u.UserName,
                     Roles = u.UserRoles.Select(x => x.Role.Name).ToList()
                 }).ToListAsync();
